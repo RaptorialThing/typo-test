@@ -13,8 +13,10 @@ class PersonController {
 	\Services\Db::obj2Table($person);
 	}
 
-	public function getPersonById($id) {
-
+	public function selectPerson($id) {
+		$person = \Model\Person::getById($id);
+		$person = \Model\Person::obj2Array($person);
+		\View\View::render('person.html.twig',$person);
 	}
 
 	public function createPerson($name) {
@@ -29,9 +31,6 @@ class PersonController {
 		\View\View::render('person.html.twig',$person);
 	}
 
-	public function selectPerson() {
-
-	}
 
 	public static function word($word) {
 		
