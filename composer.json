@@ -1,0 +1,26 @@
+{
+    "name": "raptor/project-sex",
+    "description": "sex prokect",
+    "authors": [
+        {
+            "name": "Raptor Raptor",
+            "email": "decycle@yandex.ru"
+        }
+    ],
+    "require": {
+        "bramus/router": "^1.4",
+        "twig/twig": "^3.0"
+    },
+    "autoload": {
+    	"psr-4": {
+    		"Model\\": "src/Model/",
+    		"Controller\\": "src/Controller/",
+    		"View\\": "src/View/",
+            "Services\\":"src/Services/"
+    	}
+    },
+    "files": [
+    	"config.php",
+        "src/templates/"
+    ]
+}
