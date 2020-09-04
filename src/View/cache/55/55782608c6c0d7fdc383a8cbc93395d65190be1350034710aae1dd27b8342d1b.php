@@ -13,7 +13,7 @@ use Twig\Source;
 use Twig\Template;
 
 /* content.html */
-class __TwigTemplate_bb7b24fff4e13a49e776b81c9a254a2808d58ed1b32e0b981f4470d663fb7412 extends Template
+class __TwigTemplate_baea7e8fd15eb503676fe2847b7f23f41750b28a2c0703f15efd7178b7091c33 extends Template
 {
     private $source;
     private $macros = [];
@@ -35,7 +35,7 @@ class __TwigTemplate_bb7b24fff4e13a49e776b81c9a254a2808d58ed1b32e0b981f4470d663f
         $macros = $this->macros;
         // line 1
         echo "<div class=\"row\">
-\t<div class=\"col-sm-12\">
+\t<div class=\"col-sm-4\">
 \t<h3>this is content title</h3>
 \t<p>this is content </p>
 \t</div>
@@ -54,6 +54,11 @@ class __TwigTemplate_bb7b24fff4e13a49e776b81c9a254a2808d58ed1b32e0b981f4470d663f
 
     public function getSourceContext()
     {
-        return new Source("", "content.html", "/home/raptor/development/ProjectLineOn/src/View/content.html");
+        return new Source("<div class=\"row\">
+\t<div class=\"col-sm-4\">
+\t<h3>this is content title</h3>
+\t<p>this is content </p>
+\t</div>
+</div>\t", "content.html", "/home/raptor/development/ProjectLineOn/src/View/content.html");
     }
 }

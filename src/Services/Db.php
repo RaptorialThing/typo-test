@@ -77,10 +77,41 @@ class Db {
 		$query = trim($query,",");
 		$sth = $pdo->prepare($query);
 		$sth->execute($values);
+		return $pdo->lastInsertId();
 	}
 
-	public static function update($table,$id) {
+	public static function getLastId($table) {
+		$pdo = \Services\Db::getPdo();
+		$sth = $pdo->prepare("SELECT MAX(id) as `id` FROM `".$table."`;");
+		$sth->execute();
+		$sth->setFetchMode(\PDO::FETCH_ASSOC);
+		$selected =  $sth->fetch();
+		$id =$selected['id'];
+		return $id;
+	}
+
+	public static function update($table,$id,$name) {
+		$pdo = \Services\Db::getPdo();
+		$query = "UPDATE `".$table."` SET ";
+		foreach ($name as $nK=>$nV) {
+			$key = strval($nK);
+			$query .= "`".$key."` = :".$key.",";
+		}
+		$query = trim($query,",");
+		$query .= " WHERE `id` = :id";
+		$sth = $pdo->prepare($query);
+		$name['id'] = $id;
+		$sth->execute($name);
 		$obj = \Services\Db::getById($table,$id);
+		
 		return $obj;
+	}
+
+	public static function delete($id,$table) {
+		$pdo = \Services\Db::getPdo();
+		$query = "DELETE FROM `".$table."` WHERE `id` =:id";
+		$sth = $pdo->prepare($query);
+		$data = ['id'=>$id];
+		$sth->execute($data);
 	}
 }

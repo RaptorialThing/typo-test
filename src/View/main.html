@@ -1,20 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ the }} test</title>
+	<title>typo test</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h4>try <a id="link-person-insert" href="">/?person/insert=Alex</a></h4>
+<div class="jumbotron text-center">
+		<h4>try add new Person - Alice <a id="link-person-insert" href="" onclick="$choice = 'insert-person';changeRoutesUrs($choice);" >/person/insert/Alice</a></h4>
+		<p>
+			show Person by id <a id="link-person-show" href="" onclick="$choice = 'show-person';changeRoutesUrs($choice);">/person/1</a> <br/>
+			update Person by id <a id="link-person-update" href="" onclick="$choice = 'update-person'; changeRoutesUrs($choice);">/person/1/update</a> <br/>
+			delete Person by id <a id="link-person-delete" href="" onclick="$choice = 'delete-person'; changeRoutesUrs($choice);">/person/1/delete</a> 
+		</p>
 	 </div>
 	<div class="container">
 				{% include 'content.html' %}
 	</div> 
-	<script type='text/javascript'>document.getElementById('link-person-insert').href = location.href+'?person/insert=Jack'</script>
+	<script type='text/javascript'>
+		function changeRoutesUrs($choice) {
+		switch ($choice) {
+			case 'insert-person':
+				document.getElementById('link-person-insert').href = '/person/insert/Alice';
+				break;
+			case 'show-person':
+				document.getElementById('link-person-show').href = '/person/{{object.id}}';
+				break;
+			case 'delete-person':
+				document.getElementById('link-person-delete').href = '/person/{{object.id}}/delete';
+				break;
+			case 'update-person':
+				document.getElementById('link-person-update').href = '/person/{{object.id}}/update/Alice';	
+				break;		
+		}	
+		
+	}
 
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>		

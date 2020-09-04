@@ -21,6 +21,9 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     $router->before('GET', '/.*', function () {
         header('X-Powered-By: bramus/router');
     });
+    $router->get('/',function () {
+
+    });
 
     // Dynamic route: /hello/name
     $router->get('/hello/(\w+)', function ($name) {
@@ -41,28 +44,28 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
         \Controller\PersonController::selectPerson($id);
     });
 
-    // Subrouting
-    $router->mount('/movies', function () use ($router) {
+    $router->get('/person/insert/(\w+)', function ($name=null) {
+        if (!$name) {
+            echo 'name не передан. /person/id/';
+            return;
+        }
+        \Controller\PersonController::createPerson($name);
+    });
 
-        // will result in '/movies'
-        $router->get('/', function () {
-            echo 'movies overview';
-        });
+    $router->get('/person/(\d+)/delete', function ($id = null) {
+        if (!$id) {
+            echo 'id не передан. /person/id/ ';
+            return;
+        }
+        \Controller\PersonController::deletePerson($id);
+    });
 
-        // will result in '/movies'
-        $router->post('/', function () {
-            echo 'add movie';
-        });
-
-        // will result in '/movies/id'
-        $router->get('/(\d+)', function ($id) {
-            echo 'movie id ' . htmlentities($id);
-        });
-
-        // will result in '/movies/id'
-        $router->put('/(\d+)', function ($id) {
-            echo 'Update movie id ' . htmlentities($id);
-        });
+    $router->get('/person/(\d+)/update/(\w+)', function ($id = null, $name = null) {
+        if (!$id) {
+            echo 'id не передан. /person/id/update/';
+            return;
+        }
+        echo \Controller\PersonController::updatePerson($id,$name);
     });
 
     // Thunderbirds are go!

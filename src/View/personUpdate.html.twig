@@ -1,0 +1,29 @@
+<div class="container">	
+<div class="row align-items-center">
+	<div class="col-6">
+		<form id="person-form" action="" method="get">
+			<p><input type="text" id='person-name' name="name" placeholder="Name"></p>
+			<p><input type="button" value="Send" onclick="generateGet();"></p>
+		</form>	
+	</div>	
+	<div class="col-6">
+	<ul>
+<!-- 		{{ dump(object) }} -->
+		{% for property in object %}
+			{% if property is empty %}
+			{% else %} 	
+			<li>{{ property }}</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+	</div>	
+</div>
+<script type="text/javascript">
+	function generateGet() {
+		name = document.getElementById('person-name').value;
+		form = document.getElementById('person-form');
+		form.action = "/person/{{object.id}}/update/"+name;
+		form.submit();
+}
+</script>	
+</div>

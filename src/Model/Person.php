@@ -22,17 +22,44 @@ class Person  extends ProtoModel {
 	}
 
 	public  function createPerson($name,$object) {
-		\Services\Db::insert($name,$object);
+		return \Services\Db::insert($name,$object);
 		
 	}	
 
-	public function updatePerson($id) {
+	public static function getTable() {
+		$table = static::class;
+		$table = explode('\\',$table);
+		$table = end($table);
+		$table = strtolower($table);
+		return $table;
+	}
+
+	public static function className2Table() {
+		$table = static::class;
+		$table = explode('\\',$table);
+		$table = end($table);
+		$table = strtolower($table);
+		return $table;
+	}
+
+	public static function getLastPerson() {
+		$table = self::className2Table();
+		$id = \Services\Db::getLastId($table);
+		$person = \Model\Person::getById($id);
+		$person = \Model\Person::obj2Array($person);
+		return $person;
+	}
+
+	public function updatePerson($id,$name) {
 		$table = static::class;
 		$table = explode('\\',$table);
 		$table = end($table);
 		$table = strtolower($table);
 		$class = strval(static::class);
-		$obj = \Services\Db::update($table,$id);
+		$name = [
+			'name' => $name
+		];
+		$obj = \Services\Db::update($table,$id,$name);
 		$array = self::obj2Array($obj);
 		return $array;
 	}

@@ -2,25 +2,16 @@
 
 require_once 'vendor/autoload.php';
 require_once "config.php"; 
-require __DIR__ . '/routes.php';
 
 use \Controller\PersonController;
+use \Model\Person;
+use \View\View;
 
 try {
 
-
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/src/View/');
-
-$twig = new \Twig\Environment(
-    $loader,[
-        'cache' => __DIR__.'/src/View/cache'
-    ]
-);
-
-$template = $twig->load('main.html');
-
-echo $twig->render('main.html',['the'=>'typo']);
-  
+$person = \Model\Person::getLastPerson();
+\View\View::render('main.html',$person);
+require __DIR__ . '/routes.php';
 
 } catch (Exception $e) {
     echo 'Выброшено исключение '.$e;

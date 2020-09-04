@@ -22,15 +22,25 @@ class PersonController {
 	public function createPerson($name) {
 		$person = new \Model\Person();
 		$person->setProperty('name',$name);
-		$person->createPerson($name,$person);
-	}
-
-	public function updatePerson($id) {
-		$person= new \Model\Person();
-		$person = $person->updatePerson($id);
+		$id = $person->createPerson($name,$person);
+		$person = \Model\Person::getById($id);
+		$person = \Model\Person::obj2Array($person);
 		\View\View::render('person.html.twig',$person);
 	}
 
+	public function updatePerson($id,$name) {
+		$person= new \Model\Person();
+		$person = $person->updatePerson($id,$name);
+		\View\View::render('personUpdate.html.twig',$person);
+	}
+
+	public function deletePerson($id) {
+		$table = \Model\Person::getTable();
+		\Services\Db::delete($id,$table);
+		$person = \Model\Person::getById($id);
+		$person = \Model\Person::obj2Array($person);
+		\View\View::render('person.html.twig',$person);
+	}
 
 	public static function word($word) {
 		

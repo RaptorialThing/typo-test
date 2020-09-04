@@ -1,18 +1,12 @@
 <div class="container">
-<div class="row align-items-center">
-	<div class="col-6">
-		<form action="/?person/update/"{{ object.id }} method="post">
-			<p><input type="text" name="name" placeholder="Name"></p>
-			<p><input type="submit" value="Send"></p>
-		</form>	
-	</div>	
+<div class="row align-items-center">	
 	<div class="col-6">
 	<ul>
 <!-- 		{{ dump(object) }} -->
-		{% for property in object %}
+		{% for key,property in object %}
 			{% if property is empty %}
 			{% else %} 	
-			<li>{{ property }}</li>
+			<li>{{key}}: {{ property }}</li>
 			{% endif %}
 		{% endfor %}
 	</ul>

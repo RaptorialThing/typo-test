@@ -7,7 +7,8 @@ class View {
 	}
 
 	public static function render($templ,$obj) {
-		$loader = new \Twig\Loader\FilesystemLoader(__DIR__);
+		try {
+			$loader = new \Twig\Loader\FilesystemLoader(__DIR__);
 
 	$twig = new \Twig\Environment(
     $loader,[
@@ -16,7 +17,11 @@ class View {
     ]
 	);
 	$twig->addExtension(new \Twig\Extension\DebugExtension());
-		$template = $twig->load($templ);
+		$template = $twig->load($templ);	
 		echo $twig->render($templ,['object'=>$obj]);
+		} catch (\Exception $e) {
+			echo 'template rendering error '.$e->getMessage();
+		}
+
 	}
 }
