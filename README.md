@@ -20,6 +20,8 @@ sudo apt install mysql-server mysql-client
 go to root folder (where located index.php)
 
 
+composer install
+
 php -S localhost:8000 index.php
 
 
